@@ -1,11 +1,21 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from services.anomaly_detector_service import AnomalyDetectorService
 from services.events_service import EventService
 
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 anomaly_detector = AnomalyDetectorService()
 event_service = EventService()
